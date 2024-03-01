@@ -1,7 +1,6 @@
-import db.connection as connection
+from ..database import *
 
-conn = connection()
-
+conn = connection.conn()
 
 cur = conn.cursor()
 
