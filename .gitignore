@@ -2,4 +2,6 @@
 .env
 
 # IDE Settings
+.idea/
 .idea
+.idea/*
