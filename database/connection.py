@@ -4,9 +4,10 @@ import os
 
 
 # TODO: create a seed to generate database rows
-def connection():
+def connection(sql, values):
 
     load_dotenv("../.env")
+
     try:
 
         conn = psycopg2.connect(
@@ -17,13 +18,29 @@ def connection():
             port=os.getenv("DATABASE_POST")
         )
 
-        print( "Connection established" )
+        cur = conn.cursor()
 
-        return conn
+        query = cur.execute(sql, values)
+
+        cur.close()
+        conn.close()
+
 
     except psycopg2.Error as e:
-
         print("Erro ao conectar ao banco de dados:", e)
 
 
+def add_product(product):
 
+    sql = "INSERT INTO products ( name, price, quantity, EAN, categories ) VALUES ( %s, %s, %s, %s, %s )"
+    values = ( product['name'], product['price'], product['quantity'], product['EAN'], product['categories'] )
+
+    connection( sql, values )
+
+
+def edit_product(quantity, product_id):
+
+    sql = "UPDATE products SET quantity = %s WHERE product_id = %s"
+
+
+    connection(sql, values)
