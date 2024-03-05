@@ -1,4 +1,4 @@
-from array import array
+import database.database
 
 
 def add_product_screen():
@@ -16,11 +16,10 @@ def add_product_screen():
     product['quantity'] = int(input())
 
     print("Digite o código EAN do produto: ")
-    product['ean'] = input()
+    product['ean'] = int(input())
 
     print("Digite a categoria do produto: ")
     product['category'] = input()
 
-
-    return product
+    database.database.add_product( product )
 

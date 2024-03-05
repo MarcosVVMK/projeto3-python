@@ -7,6 +7,7 @@ import os
 def connection(sql, values):
 
     load_dotenv("../.env")
+    query = ""
 
     try:
 
@@ -22,6 +23,7 @@ def connection(sql, values):
 
         query = cur.execute(sql, values)
 
+        conn.commit()
         cur.close()
         conn.close()
 
@@ -29,6 +31,7 @@ def connection(sql, values):
     except psycopg2.Error as e:
         print("Erro ao conectar ao banco de dados:", e)
 
+    return query
 
 def add_product(product):
 
@@ -38,9 +41,26 @@ def add_product(product):
     connection( sql, values )
 
 
-def edit_product(quantity, product_id):
+def edit_product(new_quantity, product_id):
 
     sql = "UPDATE products SET quantity = %s WHERE product_id = %s"
-
+    values = ( new_quantity, product_id)
 
     connection(sql, values)
+
+def show_products():
+
+    sql = "SELECT * FROM product"
+
+    products = connection(sql, "")
+
+def get_product_quantity_by_name( product_name ):
+
+    sql = "SELECT quantity FROM product WHERE product_name = %s"
+
+    product = connection(sql, product_name)
+
+    if product is None:
+        return None
+    else:
+        return product['quantity']
