@@ -48,11 +48,13 @@ def edit_product(new_quantity, product_id):
 
     connection(sql, values)
 
-def show_products():
+def get_products():
 
     sql = "SELECT * FROM product"
 
     products = connection(sql, "")
+
+    return products
 
 def get_product_quantity_by_name( product_name ):
 
