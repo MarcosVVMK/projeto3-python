@@ -34,11 +34,14 @@ def connection(sql, values):
     return query
 
 def add_product(product):
-
+    print(product)
     sql = "INSERT INTO products ( name, price, quantity, EAN, categories ) VALUES ( %s, %s, %s, %s, %s )"
-    values = ( product['name'], product['price'], product['quantity'], product['EAN'], product['categories'] )
+    values = ( product['name'], product['price'], product['quantity'], product['ean'], product['category'] )
 
-    connection( sql, values )
+    product_added = connection( sql, values )
+
+    print( product_added )
+
 
 
 def edit_product(new_quantity, product_id):

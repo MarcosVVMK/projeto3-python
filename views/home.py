@@ -1,17 +1,14 @@
 import os
-
-import views.add_product
-import views.edit_product
-import views.show_products
-
+import emoji
+import views
 
 def home_screen():
     print("#### Bem Vindo ao Sistema de Controle de Estoque! ####")
     print("Escolha uma das opçoes abaixo:")
-    print("1 - Adicionar produto")
-    print("2 - Editar produto")
-    print("3 - Mostrar todos os produtos")
-    print("0 - Fechar o programa")
+    print(emoji.emojize("1 :right_arrow: Adicionar produto"))
+    print(emoji.emojize("2 :right_arrow: Editar produto"))
+    print(emoji.emojize("3 :right_arrow: Mostrar todos os produtos"))
+    print(emoji.emojize("0 :cross_mark:  Fechar o programa"))
     option = int(input())
 
     os.system('clear')
