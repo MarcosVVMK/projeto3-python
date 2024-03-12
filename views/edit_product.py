@@ -4,6 +4,8 @@ import emoji
 
 import database.database
 import home
+import views
+
 
 def edit_product_screen_header(product_name, current_product_data):
     print("##### Edição de quantidade do produto: " + product_name + " #####")
@@ -18,17 +20,56 @@ def edit_product_screen_selection():
 
     os.system('clear')
 
-    edit_product_screen( product_name, current_product_data )
+    if current_product_data:
+        return edit_product_screen( product_name, current_product_data )
+    else:
+        return product_not_found_screen()
+
+
+def product_not_found_screen():
+    print("Produto não encontrado")
+    print(emoji.emojize("1 :left_arrow: Voltar para edição do produto"))
+    print(emoji.emojize("2 :left_arrow: Voltar parao Menu Principal"))
+    print(emoji.emojize("3 :cross_mark:  Sair"))
+    choice = int(input())
+
+    os.system('clear')
+
+    if choice == 1:
+        return edit_product_screen_selection()
+    elif choice == 2:
+        return views.home.home_screen()
+    elif choice == 3:
+        exit()
+    else:
+        exit()
+
+def after_edit_product_screen():
+    print(emoji.emojize("Produto editado com sucesso! :check_mark_button:  "))
+    print("Deseja editar mais produtos?")
+    print(emoji.emojize("1 :right_arrow: Sim"))
+    print(emoji.emojize("2 :left_arrow: Voltar"))
+    option = int(input())
+
+    os.system('clear')
+
+    if option == 1:
+        edit_product_screen_selection()
+    elif option == 2:
+        views.home.home_screen()
+    else:
+        exit()
 
 def edit_product_screen( product_name, current_product_data ):
 
     edit_product_screen_header( product_name, current_product_data )
 
     print("Você deseja adicionar ou remover o produto do estoque?")
-    print("1 - Adicionar")
-    print("2 - Remover")
-    print("3 - Voltar")
-    print("4 - Sair")
+    print(emoji.emojize("1 :right_arrow: Adicionar"))
+    print(emoji.emojize("2 :right_arrow: Remover"))
+    print(emoji.emojize("3 :left_arrow: Voltar"))
+    print(emoji.emojize("4 :cross_mark:  Sair"))
+
     choice = int(input())
 
     os.system("clear")

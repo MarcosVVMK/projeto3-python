@@ -82,6 +82,8 @@ def edit_product(new_product_data):
 
     close_connection(conn, cur)
 
+
+
 def get_products():
 
     sql = "SELECT * FROM products"
