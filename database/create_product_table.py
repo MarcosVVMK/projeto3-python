@@ -17,11 +17,11 @@ def run():
 
         cursor.execute("""
                 CREATE TABLE IF NOT EXISTS products (
-                product_id integer PRIMARY KEY,
+                product_id SERIAL PRIMARY KEY,
                 name text,
                 price decimal(10,2) not null,
                 quantity integer,
-                EAN integer,
+                EAN text,
                 categories text) """)
 
         conn.commit()

@@ -1,18 +1,24 @@
+import os
+
+import emoji
+
 import database.database
 import home
 
 def edit_product_screen_selection():
     print("#### Tela de edição de produto ####")
-    print("Digite o nome do produto que deseja editar: ")
+    print(emoji.emojize("Digite o nome do produto que deseja editar: :magnifying_glass_tilted_right: "))
     product_name = input()
 
     current_product_quantity = database.database.get_product_quantity_by_name( product_name )
+
+    os.system('clear')
 
     edit_product_screen( product_name, current_product_quantity )
 
 def edit_product_screen_header(product_name, current_product_quantity):
     print("##### Edição de quantidade do produto: " + product_name + " #####")
-    print("Estoque atual: " + current_product_quantity)
+    print("Estoque atual: " + str(current_product_quantity))
 
 def edit_product_screen( product_name, current_product_quantity ):
 
