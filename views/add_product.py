@@ -17,6 +17,8 @@ def add_product_screen():
     print("Digite o nome do produto: ")
     product['name'] = input()
 
+    database.database.verify_if_product_exist( product['name'] )
+
     print("Digite o preço do produto: ")
     product['price'] = float(input())
 
@@ -50,3 +52,10 @@ def add_more_product_screen():
         views.home.home_screen()
     else:
         exit()
+
+def product_already_exists_screen():
+
+    os.system('clear')
+
+    print("Produto já existe!")
+    add_product_screen()

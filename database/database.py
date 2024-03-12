@@ -21,6 +21,32 @@ def connection():
         print("Erro ao conectar ao banco de dados:", e)
     return []
 
+def close_connection(conn, cur):
+    cur.close()
+
+    conn.close()
+
+
+def verify_if_product_exist( product_name ):
+    conn = connection()
+
+    cur = conn.cursor()
+
+    sql = "SELECT COUNT(*) FROM products WHERE name = %s"
+
+    cur.execute(sql, (product_name,))
+
+    rows = cur.fetchone()[0]
+
+    close_connection(conn, cur)
+
+    if rows > 0:
+        return views.add_product.product_already_exists_screen()
+    else:
+        return
+
+
+
 def add_product(product):
 
     sql = "INSERT INTO products ( name, price, quantity, EAN, categories ) VALUES ( %s, %s, %s, %s, %s )"
@@ -35,22 +61,26 @@ def add_product(product):
 
     conn.commit()
 
-    cur.close()
-
-    conn.close()
+    close_connection(conn, cur)
 
     views.add_product.add_more_product_screen()
 
 
-
-
-def edit_product(new_quantity, product_id):
+def edit_product(new_product_data):
 
     sql = "UPDATE products SET quantity = %s WHERE product_id = %s"
 
-    values = ( new_quantity, product_id )
+    values = ( new_product_data['quantity'], new_product_data['product_id'] )
 
-    connection(sql, values)
+    conn = connection()
+
+    cur = conn.cursor()
+
+    cur.execute(sql, values)
+
+    conn.commit()
+
+    close_connection(conn, cur)
 
 def get_products():
 
@@ -64,15 +94,14 @@ def get_products():
 
     products = cur.fetchall()
 
-    cur.close()
-
-    conn.close()
+    close_connection(conn, cur)
 
     return products
 
 def get_product_quantity_by_name( product_name ):
+    product_data = {}
 
-    sql = "SELECT quantity FROM products WHERE name = %s"
+    sql = "SELECT quantity, product_id FROM products WHERE name = %s"
 
     conn = connection()
 
@@ -80,15 +109,14 @@ def get_product_quantity_by_name( product_name ):
 
     cur.execute(sql, (product_name,) )
 
-    product_quantity = cur.fetchall()
+    query_response = cur.fetchall()
 
-    if product_quantity:
-        product_quantity = product_quantity[0][0]
+    if query_response:
+        product_data['quantity'] = query_response[0][0]
+        product_data['product_id'] = query_response[0][1]
     else:
-        product_quantity = []
+        product_data = {}
 
-    cur.close()
+    close_connection(conn, cur)
 
-    conn.close()
-
-    return product_quantity
+    return product_data
