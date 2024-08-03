@@ -10,7 +10,7 @@ services:
       - database
     stdin_open: true  # Permite entrada interativa
     tty: true         # Aloca um terminal pseudo-TTY
-    command: sh -c "python main.py; exec sh"
+    command: sh -c "sleep 3; python main.py; exec sh"
 
   database:
     container_name: database
