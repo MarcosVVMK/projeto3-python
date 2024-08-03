@@ -15,35 +15,10 @@ de dados em um ambiente de banco de dados relacional.
 
 # Dependencias
 
-    python 3.10
+    docker
+    docker composer v2
 
-    pip 22
-
-    emoji
-
-    dotenv
-
-    psycopg2
-
-Instalação do pip
-```
-sudo apt install python3-pip
-```
-
-# Instalação
-
-```
-pip install psycopg2-binary
-```
-
-```
-pip install python-dotenv
-```
-
-```
-pip install emoji
-```
 
 # Inicialização do Projeto
 
-Rode o ``python3 main.py`` que está na raiz do projeto
+Execute o arquivo cli-start.sh com o comando ``./cli-start.sh`` que está na raiz do projeto.

@@ -1,5 +1,5 @@
 import database.database
-
+import views
 
 def show_products_screen():
     print("#### Todos os produtos cadastrados ####")
@@ -8,6 +8,10 @@ def show_products_screen():
     for product in products:
         format_product(product, count)
         count = count + 1
+
+    print("Pressione qualquer tecla para voltar ao menu principal")
+    input()
+    views.home.home_screen()
 
 def format_product(product, count):
     print("________________________________________________________")

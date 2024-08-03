@@ -1,5 +1,6 @@
 services:
   cli-app:
+    container_name: cli-app
     build: .
     volumes:
       - .:/app
@@ -7,14 +8,18 @@ services:
       - .env
     depends_on:
       - database
-    command: sh -c "python main.py && tail -f /dev/null"
+    stdin_open: true  # Permite entrada interativa
+    tty: true         # Aloca um terminal pseudo-TTY
+    command: sh -c "python main.py; exec sh"
 
   database:
+    container_name: database
     image: postgres:13
     environment:
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_HOST: ${DATABASE_HOST}
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

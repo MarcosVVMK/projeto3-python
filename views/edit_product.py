@@ -1,7 +1,5 @@
 import os
-
 import emoji
-
 import database.database
 import home
 import views
@@ -45,7 +43,6 @@ def product_not_found_screen():
         exit()
 
 def after_edit_product_screen():
-    print(emoji.emojize("Produto editado com sucesso! :check_mark_button:  "))
     print("Deseja editar mais produtos?")
     print(emoji.emojize("1 :right_arrow: Sim"))
     print(emoji.emojize("2 :left_arrow: Voltar"))
@@ -79,12 +76,14 @@ def edit_product_screen( product_name, current_product_data ):
         new_product_data = add_product_screen(product_name, current_product_data)
 
         database.database.edit_product(new_product_data)
+        return views.edit_product.after_edit_product_screen()
 
     elif choice == 2:
 
         new_product_data = remove_product_screen(product_name, current_product_data)
 
         database.database.edit_product(new_product_data)
+        return views.edit_product.after_edit_product_screen()
 
     elif choice == 3:
 
@@ -95,7 +94,7 @@ def edit_product_screen( product_name, current_product_data ):
         exit()
 
     else:
-        print("Erro opção inválida!")
+        print(emoji.emojize(":cross_mark: Erro opção inválida! :cross_mark:"))
         edit_product_screen(product_name, current_product_data)
 
 
@@ -106,6 +105,9 @@ def add_product_screen(product_name, current_product_data):
     quantity = int(input())
 
     current_product_data['quantity'] = current_product_data['quantity'] + quantity
+
+    print(emoji.emojize("Produto adicionado com sucesso! :check_mark_button: "))
+    print("Estoque atual: " + str(current_product_data['quantity']))
 
     return current_product_data
 
@@ -118,5 +120,9 @@ def remove_product_screen( product_name, current_product_data ):
 
     current_product_data['quantity'] = current_product_data['quantity'] - quantity
 
-    return  current_product_data
+    print(emoji.emojize("Produto removido com sucesso! :check_mark_button: "))
+    print("Estoque atual: " + str(current_product_data['quantity']))
+
+    return current_product_data
+
 
