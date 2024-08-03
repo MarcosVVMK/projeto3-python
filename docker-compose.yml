@@ -1,0 +1,22 @@
+services:
+  cli-app:
+    build: .
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - database
+    command: sh -c "python main.py && tail -f /dev/null"
+
+  database:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
