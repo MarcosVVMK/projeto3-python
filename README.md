@@ -21,4 +21,5 @@ de dados em um ambiente de banco de dados relacional.
 
 # Inicialização do Projeto
 
+Execute o comando ``cp env-example .env``
 Execute o arquivo cli-start.sh com o comando ``./cli-start.sh`` que está na raiz do projeto.
